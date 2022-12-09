@@ -1,54 +1,66 @@
 
-var itemList=document.querySelector('#items');
-// parentElement
-console.log(itemList.parentElement);
-itemList.parentElement.style.backgroundColor='gray';
-console.log(itemList.parentElement.parentElement.parentElement);
-// ChildElement
-console.log(itemList.children);
-console.log(itemList.children[1]);
-itemList.children[1].style.backgroundColor='green';
-//FirstChild
-console.log(itemList.firstChild);
-//firstElementChild
-console.log(itemList.firstElementChild);
-itemList.firstElementChild.textContent='Hello';
-//lastChild
-console.log(itemList.lastChild);
-//lastElementChild
-console.log(itemList.lastElementChild);
-itemList.lastElementChild.textContent='Welcome';
-//nextsibling
-console.log(itemList.nextSibling);
-//nextElementsibling
-console.log(itemList.nextElementSibling);
-//previoussibling
-console.log(itemList.previousSibling);
-//previousElementsibling
-console.log(itemList.previousElementSibling);
-itemList.previousElementSibling.style.color='yellow';
+var form = document.getElementById('addForm');
+var itemList = document.getElementById('items');
+// Form submit event
+form.addEventListener('submit', addItem);
+// Delete event
+itemList.addEventListener('click', removeItem);
 
-//createElement
-var newDiv=document.createElement('div');
-//Add class
-newDiv.className='newDiv';
-//Add id
-newDiv.id='newDivid';
-//Add attribute
-newDiv.setAttribute('title','HelloDiv');
-//create text node
-var newDivText=document.createTextNode('HEllo');
-//Add text to div
-newDiv.appendChild(newDivText);
+// Add item
+function addItem(e){
+  e.preventDefault();
 
-//Inserting to DOM
-var container=document.querySelector('header .container');
-var h1=document.querySelector('header h1');
-console.log(newDiv);
-container.insertBefore(newDiv, h1);
+  // Get input value
+  var newItem = document.getElementById('item').value;
 
-//Adding HEllo before Item 1
-var container1=document.createElement("txt");
-container1.appendChild(newDivText);
-var list=document.getElementById("items");
-list.insertBefore(container1, list.children[0]);
+  // Create new li element
+  var li = document.createElement('li');
+  // Add class
+  li.className = 'list-group-item';
+  // Add text node with input value
+  li.appendChild(document.createTextNode(newItem));
+
+  // Create del button element
+  var deleteBtn = document.createElement('button');
+  // Add id to delbtn
+  deleteBtn.id='deleteid';
+  // Add classes to del button
+  deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+
+  // Append text node
+  deleteBtn.appendChild(document.createTextNode('X'));
+
+  // Append button to li
+  li.appendChild(deleteBtn);
+
+  // Append li to list
+  itemList.appendChild(li);
+
+
+//create Edit button
+
+var editBtn = document.createElement('button');
+
+// Add classes to del button
+editBtn.className = 'btn btn-edit btn-sm float-right delete';
+
+// Append text node
+editBtn.appendChild(document.createTextNode('Edit'));
+
+// Append button to li
+li.appendChild(editBtn);
+
+// Append li to list
+itemList.appendChild(li);
+
+}
+// Remove item
+function removeItem(e){
+  if(e.target.classList.contains('delete')){
+    if(confirm('Are You Sure?')){
+      var li = e.target.parentElement;
+      itemList.removeChild(li);
+    }
+  }
+}
+
