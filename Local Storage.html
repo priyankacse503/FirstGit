@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HTML LOCAL STORAGE</title>
+        <script>
+            function doFirst(){
+                var button=document.getElementById('button');
+                button.addEventListener("click",save,false);
+                display();
+            }
+            function save(){
+                var firstname=document.getElementById('firstname').value;
+                var lastname=document.getElementById('lastname').value;
+                localStorage.setItem(firstname,lastname);
+                display();
+                firstname.value="";
+                value.value="";
+            }
+            function display(){
+                var display_details=document.getElementById('display-details');
+                display_details.innerHTML="";
+                for(var i=0;i<localStorage.length;i++)
+                {
+                    var a=localStorage.key(i);
+                    var b=localStorage.getItem(a);
+                    display_details.innerHTML+="FirstName:"+a+" "+"LastName:"+b+"<br>";
+                }
+            }
+            function clear()
+            {
+                localStorage.clear();
+                location.reload();
+            }
+            window.addEventListener("load",doFirst,false);
+        </script>
+        <style>
+            input[type="text"]{
+                width:97%;
+                height: 20px;
+                border-radius: 5px;
+                border: #666 1px solid;
+            }
+            #box{
+                width: 270px;
+                padding: 10px;
+                background: #ccc;
+                border-radius: 5px;
+                margin: auto;
+                overflow: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <section id="box">
+            <form>
+                <p>First Name<input type="text" id="firstname"/></p>
+                <p>Last Name<input type="text" id="lastname"/></p>
+                <p><input type="submit" id="button" value="Submit"/></p><br>
+                <a href="javascript:clear()">Clear Items</a>
+            </form>
+        </section>
+        <section id="display-details">
+
+        </section>
+    </body>
+</html>
