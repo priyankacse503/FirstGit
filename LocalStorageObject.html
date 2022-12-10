@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HTML LOCAL STORAGE</title>
+       <style media="screen">
+
+       </style>
+             
+    </head>
+    <body>
+       <h2 id="title">Objects in localStorage</h2>
+    </body>
+    <script>
+        var myObj={
+            name: "Dom",
+            age: 25
+        };
+        let myObj_serialized=JSON.stringify(myObj);
+        localStorage.setItem("myObj",myObj_serialized);
+        let myObj_deserialized=JSON.parse(localStorage.getItem("myObj"));
+        console.log(localStorage);
+        console.log(myObj_deserialized);
+    </script>
+</html>
