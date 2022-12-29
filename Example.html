@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parcel Sandbox</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <meta charset="UTF-8" />
+    <style>
+        #delete {
+      color: red;
+      background-color: red;
+    }
+    #app{
+                width: 270px;
+                padding: 10px;
+                background: #ccc;
+                border-radius: 5px;
+                margin: auto;
+                overflow: auto;
+            }
+        h1{
+            color: blue;
+            font-style: italic;
+        }
+      </style>
+  </head>
+
+  <body>
+    <div id="app">
+    <h1>Expense Tracker</h1>
+    <form action="#">
+        <label for="Choose Expense Amount" class="form-label">Choose Expense Amount</label>
+        <select class="form-select" id="amount">
+            <option>1000</option>
+            <option>2000</option>
+            <option>3000</option>
+            <option>4000</option>
+        </select>
+        <br>
+        <label for="Choose Expense Description" class="form-label">Choose Expense Description</label>
+        <select class="form-select" id="description">
+            <option>Movies</option>
+            <option>Shopping</option>
+            <option>Gaming</option>
+            <option>Parking</option>
+        </select>
+        <br>
+            <label for="Choose Expense Category" class="form-label">Choose Expense Category</label>
+            <select class="form-select" id="category">
+                <option>Entertainment</option>
+                <option>Shopping</option>
+                <option>Gaming</option>
+                <option>Parking</option>
+        </select>   
+        <br>        
+        <p><input type="submit" id="button" value="Submit"/></p><br>
+        <a href="javascript:clear()">Clear Items</a>
+    </form>
+</div>
+    <ul id="listOfPeople"></ul>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js"></script>
+    <script src="src/registrationPage/"></script>
+    <script>
+        const submitButton = document.getElementById("button");
+        
+        document.addEventListener("DOMContentLoaded", () => {
+          //console.log("vscode");
+          localStorage.getItem();
+        });
+        
+        if (document.readyState !== "loading") {
+          console.log("vscode");
+        
+          var keys = Object.keys(localStorage), //taking out all the keys that are there in the local storage
+            i = keys.length; //6
+          console.log("keys", keys);
+          let stringifiedDetailsOfPeople, detailsOfPeople;
+        
+          // 6 to 0
+          Object.keys(localStorage).forEach((key) => {
+            //i==2
+            if (key.match(/userDetails/g)) {
+              //we only care about keys that start with userDetails
+              //this is called regex matching
+              stringifiedDetailsOfPeople = localStorage.getItem(key);
+              console.log("stringifiedDetailsOfPeople", stringifiedDetailsOfPeople);
+              detailsOfPeople = JSON.parse(stringifiedDetailsOfPeople);
+              console.log("details", detailsOfPeople);
+              showNewUserOnScreen(detailsOfPeople);
+              addNewLineElement(detailsOfPeople);
+              addNewLineElement(detailsOfPeople);
+            }
+          });
+        }
+        function clear()
+        {
+            localStorage.clear();
+            location.reload();
+        }
+        // const listOfPeople = []
+        submitButton.addEventListener("click", (e) => {
+          e.preventDefault();
+          const amount = document.getElementById("amount").value;
+          const description = document.getElementById("description").value;
+          const category = document.getElementById("category").value;
+          if (description.length > 0 && category.length > 0) {
+            const object = {
+              amount: amount,
+              description: description,
+              category: category //unique
+            };
+            localStorage.setItem("amount" + description, JSON.stringify(object));
+            // localStorage.setItem("userDetailEmail" + emailId, emailId);
+            // listOfPeople.push(object)
+            
+            addNewLineElement(object);
+          }
+        });
+        
+        function addNewLineElement(object) {
+          const ul = document.getElementById("listOfPeople");
+          const li = document.createElement("li");
+          li.appendChild(
+            document.createTextNode(object.amount + " " + object.description + " "+object.category+" ")
+          );
+          // li.appendChild()
+          console.log(document.createElement("i"));
+          const a1 = document.createElement("input");
+          a1.id = "yash";
+          a1.type = "button";
+          a1.value = "Edit";
+          a1.addEventListener("click", () => {
+            console.log(object);
+            document.getElementById("amount").value = object.amount;
+            document.getElementById("description").value = object.description;
+            document.getElementById("category").value = object.category;
+            li.remove();
+          });
+          a1.className = "delete";
+          a1.style.border = "2px solid green";
+          console.log(a1);
+          li.appendChild(a1);
+        
+          const a = document.createElement("input");
+          a.type = "button";
+          a.value = "delete";
+          a.addEventListener("click", () => {
+            localStorage.removeItem("amount" + object.category);
+           
+            li.remove();
+          });
+          a.className = "delete";
+          a.style.border = "2px solid red";
+          console.log(a);
+          li.appendChild(a);
+          console.log(li);
+        
+          ul.appendChild(li);
+        }
+        function showNewUserOnScreen(object){
+            if(localStorage.getItem(object.description)!==null){
+                removeUserFromScreen(object.description)
+            } 
+        }
+        function removeUserFromScreen(description){
+            const parentNode=document.getElementById('listOfPeople');
+            const childNodeToBeDeleted=document.getElementById('description');
+            if(childNodeToBeDeleted){
+                parentNode.removeChild(childNodeToBeDeleted);
+            }
+        }
+        </script>
+        
+  </body>
+</html>
+
+
