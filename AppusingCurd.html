@@ -25,7 +25,7 @@
    
     <script>
         const submitButton = document.getElementById("submit");
-        
+  
         window.addEventListener("DOMContentLoaded", () => {
             axios.get("https://crudcrud.com/api/f7f97dfd8696472499d6004753cc3b73/appointmentdata")
           .then((Response)=>{
@@ -41,7 +41,7 @@
             })
             console.log("vscode");
         });
-        
+               
         submitButton.addEventListener("click", (e) => {
           e.preventDefault();
           const emailId = document.getElementById("email").value;
@@ -54,7 +54,8 @@
 
             axios.post("https://crudcrud.com/api/f7f97dfd8696472499d6004753cc3b73/appointmentdata",object)
             .then((Response)=>{
-                showNewUserOnScreen(object)
+              axios.get("https://crudcrud.com/api/f7f97dfd8696472499d6004753cc3b73/appointmentdata")
+              showNewUserOnScreen(object)
             })
             .catch((err)=>{
                 document.body.innerHTML=document.body.innerHTML+ "<h3>Something went wrong </h3>";
@@ -67,8 +68,6 @@
     });
         
         function showNewUserOnScreen(object){
-            document.getElementById('email').value='';
-            document.getElementById('name').value='';
           const ul = document.getElementById("listOfPeople");
           const li = document.createElement("li");
             li.appendChild(
@@ -91,12 +90,20 @@
           a1.style.border = "2px solid green";
           console.log(a1);
           li.appendChild(a1);
-        
           const a = document.createElement("input");
           a.type = "button";
           a.value = "delete";
           a.addEventListener("click", () => {
-         //localStorage.removeItem("userDetails" + object.emailId);
+          axios.delete("https://crudcrud.com/api/f7f97dfd8696472499d6004753cc3b73/appointmentdata/63b6a62a32f90d03e8f1027d",object)
+          .then((Response)=>{
+              axios.get("https://crudcrud.com/api/f7f97dfd8696472499d6004753cc3b73/appointmentdata")
+                showNewUserOnScreen(object)
+            })
+            .catch((err)=>{
+                document.body.innerHTML=document.body.innerHTML+ "<h3>Something went wrong </h3>";
+                console.log(err)
+            })
+          //localStorage.removeItem("userDetails" + object.emailId);
             // axios.delete(`${apiendpoint}/registeruser/${object._id}`);
             li.remove();
           });
