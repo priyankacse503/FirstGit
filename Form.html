@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Form</title>
+        <h1>Appointment Booking App</h1>
+        <style>
+            input[type="text"]{
+                width:97%;
+                height: 20px;
+                border-radius: 5px;
+                border: #666 1px solid;
+            }
+            #box{
+                width: 270px;
+                padding: 10px;
+                background: #ccc;
+                border-radius: 5px;
+                margin: auto;
+                overflow: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <section id="box">
+            <form id="addForm">
+                <p>First Name<input type="text" id="firstname"/></p>
+                <p>Last Name<input type="text" id="lastname"/></p>
+                <p><input type="submit" id="button" value="Submit"/></p><br>
+                
+            </form>
+        </section>
+        <section id="display-details">
+
+        </section>
+
+    <script>
+  var form = document.getElementById('addForm');
+  form.addEventListener('submit', addItem);
+        function doFirst(){
+                var button=document.getElementById('button');
+                button.addEventListener("click",save,false);
+                display();
+            }
+            function save(){
+                var firstname=document.getElementById('firstname').value;
+                var lastname=document.getElementById('lastname').value;
+                localStorage.setItem(firstname,lastname);
+                // Create del button element
+  
+                display();
+                firstname.value="";
+                value.value="";
+            }
+            function display(){
+                var display_details=document.getElementById('display-details');
+                display_details.innerHTML="";
+                for(var i=0;i<localStorage.length;i++)
+                {
+                    var a=localStorage.key(i);
+                    var b=localStorage.getItem(a);
+                    display_details.innerHTML+="FirstName:"+a+" "+"LastName:"+b+"<br>";
+                     
+                }
+            }
+            
+            window.addEventListener("load",doFirst,false);
+    </script>
+    
+    </body>
+</html>

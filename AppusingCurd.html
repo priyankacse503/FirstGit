@@ -26,36 +26,22 @@
     <script>
         const submitButton = document.getElementById("submit");
         
-        document.addEventListener("DOMContentLoaded", () => {
-          console.log("vscode");
-          //localStorage.getItem();
+        window.addEventListener("DOMContentLoaded", () => {
+            axios.get("https://crudcrud.com/api/f7f97dfd8696472499d6004753cc3b73/appointmentdata")
+          .then((Response)=>{
+                console.log(Response)
+                for(var i=0;i<Response.data.length;i++)
+                {
+                    showNewUserOnScreen(Response.data[i])
+                }
+            })
+            .catch((err)=>{
+                document.body.innerHTML=document.body.innerHTML+ "<h3>Something went wrong </h3>";
+                console.log(err)
+            })
+            console.log("vscode");
+        });
         
-        
-        if (document.readyState !== "loading") {
-          console.log("vscode");
-        
-          var keys = Object.keys(localStorage), //taking out all the keys that are there in the local storage
-            i = keys.length; //6
-          console.log("keys", keys);
-          let stringifiedDetailsOfPeople, detailsOfPeople;
-        
-          // 6 to 0
-          Object.keys(localStorage).forEach((key) => {
-            //i==2
-            if (key.match(/userDetails/g)) {
-              //we only care about keys that start with userDetails
-              //this is called regex matching
-              stringifiedDetailsOfPeople = localStorage.getItem(key);
-              console.log("stringifiedDetailsOfPeople", stringifiedDetailsOfPeople);
-              detailsOfPeople = JSON.parse(stringifiedDetailsOfPeople);
-              console.log("details", detailsOfPeople);
-        
-              showNewUserOnScreen(detailsOfPeople);
-            }
-          });
-        }
-      });
-        // const listOfPeople = []
         submitButton.addEventListener("click", (e) => {
           e.preventDefault();
           const emailId = document.getElementById("email").value;
@@ -81,6 +67,8 @@
     });
         
         function showNewUserOnScreen(object){
+            document.getElementById('email').value='';
+            document.getElementById('name').value='';
           const ul = document.getElementById("listOfPeople");
           const li = document.createElement("li");
             li.appendChild(

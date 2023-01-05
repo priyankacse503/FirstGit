@@ -36,23 +36,21 @@ function addItem(e){
   // Append li to list
   itemList.appendChild(li);
 
+  //Add Edit button
+  var editBtn = document.createElement('button');
+  // Add id to editbtn
+  editBtn.id='deleteid';
+  // Add classes to edit button
+  editBtn.className = 'btn btn-sm float-right editbtn';
 
-//create Edit button
+  // Append text node
+  editBtn.appendChild(document.createTextNode('Edit'));
 
-var editBtn = document.createElement('button');
+  // Append button to li
+  li.appendChild(editBtn);
 
-// Add classes to del button
-editBtn.className = 'btn btn-edit btn-sm float-right delete';
-
-// Append text node
-editBtn.appendChild(document.createTextNode('Edit'));
-
-// Append button to li
-li.appendChild(editBtn);
-
-// Append li to list
-itemList.appendChild(li);
-
+  // Append li to list
+  itemList.appendChild(li);
 }
 // Remove item
 function removeItem(e){
@@ -63,4 +61,5 @@ function removeItem(e){
     }
   }
 }
+
 

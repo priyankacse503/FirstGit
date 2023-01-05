@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CallBacks</title>
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <script>
+            const posts=[
+                {title: 'Post One created at ',body: 'This is post one',createdAt: new Date().getTime()},
+                {title: 'Post Two created at ',body: 'This is post two',createdAt: new Date().getTime()}
+            ];
+            function getPosts(){
+                setTimeout(()=>{
+                    let output='';
+                    /*posts.forEach((post,index)=>{
+                        output+=`<li>${post.title} ${post.createdAt}</li>`;
+                    });*/
+                    for(let i=0;i<posts.length;i++)
+                    {
+                        output+=`<li>${posts[i].title}- last updated ${(new Date().getTime() - posts[i].createdAt) /1000} seconds ago</li>`
+                    }
+                    document.body.innerHTML=output;
+                    //console.log(output);
+                },0)
+            }
+            /*const createPromise= createPost(posts);
+            createPromise.then(()=>{
+                setTimeout(()=>{
+                //console.log(posts)
+            })},2000).catch(err=>console.log(err));*/
+             function createPost(post){
+                    var createPromise1= new Promise((resolve,reject)=>{
+                    setTimeout(()=>{
+                    posts.push({...post,createdAt: new Date().getTime()});
+                    const error=false;
+                    if(!error)
+                        resolve();
+                    else
+                    reject('Error: Something went wrong');
+                },1000);
+                }) 
+                return createPromise1;
+            };  
+               
+            createPost({title:'Post Three created at ',body:'This is post three'})
+            .then(()=>{
+                getPosts()
+                /*deletePost().then((deletedElement)=>{
+                    console.log(deletedElement)
+                    getPosts();
+                    deletePost().then(()=>{
+                        getPosts();
+                        deletePost().then(()=>{
+                            getPosts();
+                            deletePost().then(()=>{})
+                            .catch((err)=>{
+                                console.log('Inside catch block',err)
+                            })
+                        }).catch((err)=>{
+                                console.log('Inside catch block',err)
+                            })
+                    }).catch((err)=>{
+                                console.log('Inside catch block',err)
+                            })
+                }).catch((err)=>{
+                                console.log('Inside catch block',err)
+                            })*/
+            }).catch(err=>console.log(err))
+            createPost({title:'Post four created at ',body:'This is post four',createdAt: new Date().getTime()})
+            .then(()=>{
+                getPosts()
+                //deletePost(setTimeout(()=>{deletePost},1000)).then(()=>{});
+            }).catch(err=>console.log(err));
+            
+            function deletePost(){         
+                return new Promise((resolve,reject)=>{
+                    setTimeout(()=>{
+                    if(posts.length>0){
+                        /*const lastele=posts.pop();
+                        resolve(lastele);*/
+                        resolve(posts.pop());
+                    }
+                    else
+                        reject('Array is Empty now');
+                },1000);
+            });
+            }
+            
+            const user={
+                username: 'Priya',
+                lastActivityTime: '10th of Dec'
+            };
+            var updatePromise= new Promise((resolve,reject)=>{
+                setTimeout(()=>{
+                    console.log("Before creating post 4 LastActivityTime =  "+user.lastActivityTime)
+                    user.lastActivityTime=new Date().getTime();
+                    resolve(user.lastActivityTime)
+                },1000)
+            })  
+            Promise.all([updatePromise])
+            .then(([createPromiseresolves,updateLastUserActivityTimeresolves])=>{
+                setTimeout(()=>{      
+                //console.log(posts)         
+                console.log("user Last ActivityTime = "+createPromiseresolves+" "+updateLastUserActivityTimeresolves)
+            })},3000)
+            .catch(err=>console.log(err))  
+            
+        </script>
+    </body>
+</html>

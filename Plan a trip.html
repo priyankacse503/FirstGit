@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Plan a Trip</title>
+    </head>
+    <body>
+        <script>
+function buycar(){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+        resolve('buy a car')
+    },5000)
+    })
+}
+function plantrip(){
+    return new Promise((resolve,reject)=>{
+    setTimeout(()=>{
+        resolve('lets go to manali')
+    },2000)
+    })
+}
+function reachmanali(){
+    return new Promise((resolve,reject)=>{
+    setTimeout(()=>{
+        resolve('reached Manali')
+    },1000)
+})
+}
+function gotofamousmountain(){
+    return new Promise((resolve,reject)=>{
+    setTimeout(()=>{
+        const err=false;
+        if(!err)
+            resolve('reached mountain')
+        else
+            reject('error: not reached')
+    },1000)
+})
+}
+/*
+        Using Promises
+
+buycar().then((msg)=>{
+    console.log(msg)
+    plantrip().then((msg2)=>{
+        console.log(msg2)
+    reachmanali().then((msg3)=>{
+        console.log(msg3)
+    gotofamousmountain().then((msg4)=>{
+        console.log(msg4)
+    })
+    }
+    )
+    })
+})*/
+/*   Using async await*/
+async function fun1(){
+    try{
+        const msg=await buycar();
+        console.log(msg);
+        const msg2=await plantrip();
+        console.log(msg2);
+        const msg3=await reachmanali();
+        console.log(msg3);
+        const msg4=await gotofamousmountain();
+        console.log(msg4);
+        }catch(err){
+            console.log(err)
+        }
+}
+fun1()
+    </script>
+</body>
+</html>

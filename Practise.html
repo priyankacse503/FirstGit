@@ -28,8 +28,8 @@
         
         document.addEventListener("DOMContentLoaded", () => {
           console.log("vscode");
-          //localStorage.getItem();
-        
+          localStorage.getItem();
+        });
         
         if (document.readyState !== "loading") {
           console.log("vscode");
@@ -50,11 +50,10 @@
               detailsOfPeople = JSON.parse(stringifiedDetailsOfPeople);
               console.log("details", detailsOfPeople);
         
-              showNewUserOnScreen(detailsOfPeople);
+              addNewLineElement(detailsOfPeople);
             }
           });
         }
-      });
         // const listOfPeople = []
         submitButton.addEventListener("click", (e) => {
           e.preventDefault();
@@ -68,8 +67,8 @@
             localStorage.setItem("userDetails" + emailId, JSON.stringify(object));
             // localStorage.setItem("userDetailEmail" + emailId, emailId);
             // listOfPeople.push(object)
-            showNewUserOnScreen(object)
-            //addNewLineElement(object);
+            
+            addNewLineElement(object);
           }
         });
         
@@ -89,7 +88,6 @@
             console.log(object);
             document.getElementById("name").value = object.name;
             document.getElementById("email").value = object.emailId;
-            localStorage.removeItem("userDetails" + object.emailId);
             li.remove();
           });
           a1.className = "delete";
@@ -113,55 +111,9 @@
         
           ul.appendChild(li);
         }
-        function showNewUserOnScreen(object){
-          /*const parentElem=document.getElementById('listOfPeople')
-          const childEle=document.createElement('li')
-          childEle.textContent=object.name + ' - ' + object.emailId;
-          parentElem.appendChild(childEle)*/
-
-          const ul = document.getElementById("listOfPeople");
-          const li = document.createElement("li");
-
-          //const emailId = document.getElementById("email").value;
-          console.log("Object value: "+document.getElementById("email").value);
-          //if(emailId==object.emailId)
-            li.appendChild(
-            document.createTextNode(object.name + " " + object.emailId + " ")
-            )
-                
-        console.log(document.createElement("i"));
-          const a1 = document.createElement("input");
-          a1.id = "yash";
-          a1.type = "button";
-          a1.value = "Edit";
-          a1.addEventListener("click", () => {
-            console.log(object);
-            document.getElementById("name").value = object.name;
-            document.getElementById("email").value = object.emailId;
-            localStorage.removeItem("userDetails" + object.emailId);
-            li.remove();
-          });
-          a1.className = "delete";
-          a1.style.border = "2px solid green";
-          console.log(a1);
-          li.appendChild(a1);
+       
+        </script>
         
-          const a = document.createElement("input");
-          a.type = "button";
-          a.value = "delete";
-          a.addEventListener("click", () => {
-            localStorage.removeItem("userDetails" + object.emailId);
-            // axios.delete(`${apiendpoint}/registeruser/${object._id}`);
-            li.remove();
-          });
-          a.className = "delete";
-          a.style.border = "2px solid red";
-          console.log(a);
-          li.appendChild(a);
-          console.log(li);
-          ul.appendChild(li);
-      }
-        </script>       
   </body>
 </html>
 

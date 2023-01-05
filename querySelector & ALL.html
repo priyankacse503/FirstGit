@@ -34,11 +34,13 @@
     console.log(titles);
     titles[0].textContent='Java';
     var odd=document.querySelectorAll('li:nth-Child(odd)');
-    var even=document.querySelectorAll('li:nth-Child(even)');
+    var second=document.querySelectorAll('li');
+    second[1].style.color='green';
+    //var even=document.querySelectorAll('li:nth-Child(even)');
     for(var i=0;i<odd.length;i++)
     {
         odd[i].style.backgroundColor='green';
-        even[i].style.color='green';
+       // even[i].style.color='green';
     }
     
 </script>

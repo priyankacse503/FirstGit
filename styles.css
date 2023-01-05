@@ -1,0 +1,16 @@
+
+        input[type="text"]{
+            width:97%;
+            height: 20px;
+            border-radius: 5px;
+            border: #666 1px solid;
+        }
+        #box{
+            width: 270px;
+            padding: 10px;
+            background: #ccc;
+            border-radius: 5px;
+            margin: auto;
+            overflow: auto;
+        }
+    

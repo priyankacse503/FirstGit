@@ -16,6 +16,7 @@ class Student{
         }
       };
      eligible(marks);
+     
      const  placements =(age)=>{
             if(this.marks >40)
             {

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Async await</title>
+    </head>
+    <body>
+        <script>
+           /* console.log('person1: shows ticket');
+            console.log('person2: shows ticket');
+            const preMovie=async ()=> {
+                const promiseWifeBringingTicks=new Promise((resolve,reject)=>{
+                setTimeout(()=>{
+                    resolve('ticket')
+                },1000)
+            });
+            const getPopcorn= new Promise((resolve,reject)=>resolve(`popcorn`));
+            const addbutter= new Promise((resolve,reject)=>resolve(`butter`));
+            const getColdDrinks= new Promise((resolve,reject)=>resolve(`coldDrinks`));
+            let ticket=await promiseWifeBringingTicks;
+
+           console.log(`wife: i have the ${ticket}`);
+            console.log('husband: we should go in');
+            console.log('wife: no i am hungry');
+            
+            let popcorn=await getPopcorn;
+
+            console.log(`husband: i got some ${popcorn}`);
+            console.log('husband: we should go in');
+            console.log('wife: I need butter on my popcorn');
+            
+            let butter=await addbutter;
+            console.log(`husband: i got some ${butter} on popcorn`);
+            
+            let drinks=await getColdDrinks;
+            console.log(`husband: i got some ${drinks} also`);
+            console.log(`husband: anything else?`);
+            console.log(`wife: lets go we are getting late`);
+            console.log(`husband: ok`);
+
+            let[popcorn1,butter1,drinks1]=await Promise.all([getPopcorn,addbutter,getColdDrinks])
+            console.log(`${popcorn}, ${butter}, ${drinks}`);
+            return ticket;
+            }
+            preMovie().then((m)=>console.log(`person3: shows ${m}`));
+            console.log('person4: shows ticket');
+            console.log('person5: shows ticket');*/
+            
+
+            const posts=[
+                {title: 'Post One created at ',body: 'This is post one',createdAt: new Date().getTime()},
+                {title: 'Post Two created at ',body: 'This is post two',createdAt: new Date().getTime()}
+            ];
+            function getPosts(){
+                setTimeout(()=>{
+                    let output='';
+                    /*posts.forEach((post,index)=>{
+                        output+=`<li>${post.title} ${post.createdAt}</li>`;
+                    });*/
+                    for(let i=0;i<posts.length;i++)
+                    {
+                        output+=`<li>${posts[i].title}- last updated ${(new Date().getTime() - posts[i].createdAt) /1000} seconds ago</li>`
+                    }
+                    document.body.innerHTML=output;
+                    //console.log(output);
+                },0)
+            }
+            function createPost(post){
+                    var createPromise1= new Promise((resolve,reject)=>{
+                    setTimeout(()=>{
+                    posts.push({...post,createdAt: new Date().getTime()});
+                    const error=false;
+                    if(!error)
+                        resolve();
+                    else
+                    reject('Error: Something went wrong');
+                },0);
+                }) 
+                return createPromise1;
+            }; 
+            function deletePost(){         
+                return new Promise((resolve,reject)=>{
+                    setTimeout(()=>{
+                    if(posts.length>0){
+                        /*const lastele=posts.pop();
+                        resolve(lastele);*/
+                        resolve(posts.pop());
+                    }
+                    else
+                        reject('Array is Empty now');
+                },3000);
+            });
+            }
+           // getPosts();
+        /*deletePost().then(()=>{
+                getPosts();
+            }).catch((err)=>{
+                    console.log('Inside catch block',err)
+            });*/
+
+async function fun1(){
+    try{
+        const msg=await createPost();
+        console.log(msg);
+        const msg2=await deletePost();
+        console.log(msg2);
+        
+        }catch(err){
+            console.log(err)
+        }
+}
+fun1()
+            
+        </script>
+    </body>
+</html>
+
